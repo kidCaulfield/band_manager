@@ -1,4 +1,4 @@
-# Basic rails api Setup for React frontend
+# Basic rail api Setup for React frontend
 
 ### Setting up and api with Rails
 
@@ -13,7 +13,10 @@ rails db:create
 
 Add gems that apply to your api and project.
 
-```rails
+```ruby
+gem 'bcrypt'
+gem 'jbuilder'
+
 gem 'rack-cors'
 gem 'active_model_serializers'
 gem 'cancancan'
@@ -50,9 +53,9 @@ and now your ready to code 👾
 
 ### Minimal Setup of models for testing API with postman
 
-Make sure to set up has_secrue_password in your user model
+Make sure to set up has_secrue_password in your user model to activate the bcrypt gems magic.
 
-```rails
+```ruby
 has_secure_password
     
 validates :email,   presence: true,
@@ -72,7 +75,7 @@ to be continued... 🤖
 
 setup routes
 
-```rails
+```ruby
 namespace :v1, defaults: {format: :json} do
   resources :venues, only: [:show, :index, :create, :destroy]
   resource :session, only: [:create, :destroy]
@@ -82,7 +85,7 @@ end
 
 ###Create methods venues API controller ready to interact with your frontend
 
-```rails
+```ruby
 def index
   venues = Venue.order(created_at: :desc)
   render json: venues
@@ -123,7 +126,7 @@ end
 
 ### Next up Users API Controller
 
-```rails
+```ruby
 def create
   # binding.pry
   @user = User.new user_params
@@ -150,9 +153,8 @@ end
 
 ### Sessions controller
 
-```rails
+```ruby
 def create
-    binding.pry
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
@@ -166,4 +168,77 @@ def create
     session[:user_id] = nil
     render json: {status: 200}, status: 200
   end
+```
+
+### Enable Access to from your Frontend server
+
+inside config/application
+
+```ruby
+module BandManager2019
+  class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.2
+
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
+
+    config.active_job.queue_adapter = :delayed_job
+
+    config.middleware.insert_before(0, Rack::Cors) do
+      allow do
+        # origins "www.google.com"
+        origins "localhost:3030", "127.0.0.1:3030"
+        # "origins" specifies which domains are allowed to make AJAX
+        # requests to this server. "*" means everyone and should normally not
+        # by used.
+        resource(
+          "/api/*", # this means that only routes that begin with /api/ are accessible
+          headers: :any,
+          credentials: true,
+          methods: [:get, :post, :delete, :patch, :put, :options]
+        )
+      end
+    end
+
+    config.generators do |g|
+      # Don't create helper files when using `rails generator`
+      # --no-helper
+      g.helper = false
+      # Don't create js & css files when using `rails generator`
+      # --no-assets
+      g.assets = false
+    end
+  end
+```
+
+### Create Review
+
+review controller
+
+```ruby
+ def create
+    venue = Venue.find params[:venue_id]
+    review = Review.new review_params
+    review.venue = venue
+    review.save
+    render json: review
+  end
+  
+  private
+  def review_params
+    binding.pry
+    params.require(:review).permit(:body)
+  end
+```
+
+venue model
+
+```ruby
+has_many :reviews, dependent: :destroy
 ```

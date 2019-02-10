@@ -1,10 +1,9 @@
 class VenueSerializer < ActiveModel::Serializer
   attributes(
     :id,
-    :venue,
-    :vicinity,
-    :longitute,
-    :latitude,
+    :name,
+    :address,
+    :geo,
     :created_at,
     :updated_at
   ) 

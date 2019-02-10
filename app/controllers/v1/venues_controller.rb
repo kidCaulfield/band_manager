@@ -6,11 +6,12 @@ class V1::VenuesController < ApplicationController
   end
 
   def show
+    review = venue.reviews.order(created_at: :desc)
     render json: venue
   end
 
   def create
-    byebug
+ 
     venue = Venue.new venue_params
     
     if venue.save
@@ -35,6 +36,6 @@ class V1::VenuesController < ApplicationController
   end
 
   def venue_params
-    params.require(:venue).permit(:name, :vicinity, :longitude, :latitude)
+    params.require(:venue).permit!
   end
 end
