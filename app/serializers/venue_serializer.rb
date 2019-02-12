@@ -7,4 +7,16 @@ class VenueSerializer < ActiveModel::Serializer
     :created_at,
     :updated_at
   ) 
+
+  has_many :reviews
+
+  class ReviewsSerializer < ActiveModel::Serializer
+  attributes(
+    :id,
+    :body,
+    :created_at,
+    :updated_at
+    )
+end
+
 end

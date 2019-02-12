@@ -242,3 +242,8 @@ venue model
 ```ruby
 has_many :reviews, dependent: :destroy
 ```
+
+### Serializers
+
+these are the backbone of you API. They help your share specified data with the user,
+as well declare relations between tables.
