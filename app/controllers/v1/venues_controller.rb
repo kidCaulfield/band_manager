@@ -7,7 +7,6 @@ class V1::VenuesController < ApplicationController
 
   def show
     reviews = venue.reviews.order(created_at: :desc)
-    p reviews
     render json: venue
   end
 
@@ -34,7 +33,6 @@ class V1::VenuesController < ApplicationController
 
   def venue
     @venue ||= Venue.find params[:id]
-
   end
 
   def venue_params

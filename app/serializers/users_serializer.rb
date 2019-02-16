@@ -5,7 +5,6 @@ class UsersSerializer < ActiveModel::Serializer
     :first_name,
     :last_name,
     :created_at,
-    :updated_at,
+    :updated_at
   ) 
-
 end

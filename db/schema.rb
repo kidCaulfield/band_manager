@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_09_032916) do
+ActiveRecord::Schema.define(version: 2019_02_15_023305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.date "date"
+    t.string "contact"
+    t.string "aasm_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "venue_id"
+    t.bigint "tour_id"
+    t.index ["tour_id"], name: "index_events_on_tour_id"
+    t.index ["venue_id"], name: "index_events_on_venue_id"
+  end
 
   create_table "reviews", force: :cascade do |t|
     t.string "body"
@@ -21,6 +34,13 @@ ActiveRecord::Schema.define(version: 2019_02_09_032916) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["venue_id"], name: "index_reviews_on_venue_id"
+  end
+
+  create_table "tours", force: :cascade do |t|
+    t.string "title"
+    t.string "band"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,7 +59,11 @@ ActiveRecord::Schema.define(version: 2019_02_09_032916) do
     t.json "geo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_venues_on_user_id"
   end
 
+  add_foreign_key "events", "tours"
+  add_foreign_key "events", "venues"
   add_foreign_key "reviews", "venues"
 end

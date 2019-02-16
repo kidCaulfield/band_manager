@@ -247,3 +247,14 @@ has_many :reviews, dependent: :destroy
 
 these are the backbone of you API. They help your share specified data with the user,
 as well declare relations between tables.
+
+### fix cookie bug
+
+Updated rails application.rb to support cookies
+
+```ruby
+class Application < Rails::Application
+  
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_coookie_name', expire_after: 30.days
+```
