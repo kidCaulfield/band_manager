@@ -13,7 +13,7 @@ end
 def create
   tour = Tour.new tour_params
   tour.save
-  render(json: {id: tour.id}, status: 200)
+  render json: {id: tour.id}, status: 200
 end
 
 private
