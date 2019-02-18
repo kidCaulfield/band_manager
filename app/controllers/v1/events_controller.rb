@@ -10,6 +10,6 @@ class V1::EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:title, :date, :contact, :aasm_state)
+    params.require(:event).permit!
   end
 end

@@ -2,7 +2,12 @@ class V1::ToursController < ApplicationController
 
 def index
   tours = Tour.order(created_at: :desc)
-  render json: tours
+  # if params[:venue_ids]
+  #   venues = Venue.find_or_initialize_by(name: params[:venue])
+  #   render json: tours
+  # else
+    render json: tours
+  # end
 end
 
 def show
