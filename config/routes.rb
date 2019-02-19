@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :v1, defaults: {format: :json} do
+    resources :locations, only: [:create, :index]
     resources :tours, shallow: true, only: [:create, :show, :index] do
       resources :events, only: [:create]
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_18_035007) do
+ActiveRecord::Schema.define(version: 2019_02_18_201819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,23 @@ ActiveRecord::Schema.define(version: 2019_02_18_035007) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "tour_id"
-    t.json "venue"
+    t.bigint "venue_id"
     t.index ["tour_id"], name: "index_events_on_tour_id"
+    t.index ["venue_id"], name: "index_events_on_venue_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "city"
+    t.string "lat"
+    t.string "lng"
+    t.string "country"
+    t.string "iso2"
+    t.string "region"
+    t.string "capital"
+    t.string "population"
+    t.string "population_proper"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -74,5 +89,6 @@ ActiveRecord::Schema.define(version: 2019_02_18_035007) do
   add_foreign_key "event_venues", "events"
   add_foreign_key "event_venues", "venues"
   add_foreign_key "events", "tours"
+  add_foreign_key "events", "venues"
   add_foreign_key "reviews", "venues"
 end

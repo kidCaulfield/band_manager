@@ -15,10 +15,14 @@ class TourSerializer < ActiveModel::Serializer
       :title,
       :date,
       :contact,
-      :venue_ids,
+      :venue_id,
       :aasm_state,
       :created_at,
-      :updated_at
+      :updated_at,
+      :venue
       )
+
+      belongs_to :tour
+      belongs_to :venue
     end
 end

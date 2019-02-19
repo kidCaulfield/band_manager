@@ -1,17 +1,15 @@
 class V1::ToursController < ApplicationController
-
+before_action :tour, only: [:create]
 def index
   tours = Tour.order(created_at: :desc)
-  # if params[:venue_ids]
-  #   venues = Venue.find_or_initialize_by(name: params[:venue])
-  #   render json: tours
-  # else
-    render json: tours
-  # end
+  render json: tours
 end
 
 def show
-  events = tour.events.order(created_at: :desc)
+  # events = tour.events.order(created_at: :desc)
+  # tour = Tour.where(id: params[:id]).joins(:events).joins(:venues)
+  # tour = Tour.where(id: params[:id]).joins(events: [{venues: :venues}])
+  tour = Tour.includes(events: :venue).find(params[:id])
   render json: tour
 end
 

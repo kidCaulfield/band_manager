@@ -1,6 +1,6 @@
 class Venue < ApplicationRecord
   has_many :reviews, dependent: :destroy
-  has_many :events, through: :event_venues
+  has_many :events
 
   validates(
     :name,

@@ -9,6 +9,7 @@ class VenueSerializer < ActiveModel::Serializer
   ) 
 
   has_many :reviews
+  has_many :events
 
   class ReviewsSerializer < ActiveModel::Serializer
   attributes(
@@ -17,6 +18,5 @@ class VenueSerializer < ActiveModel::Serializer
     :created_at,
     :updated_at
     )
-end
-
+  end
 end
