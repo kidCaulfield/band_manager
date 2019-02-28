@@ -83,7 +83,7 @@ namespace :v1, defaults: {format: :json} do
 end
 ```
 
-###Create methods venues API controller ready to interact with your frontend
+### Create methods venues API controller ready to interact with your frontend
 
 ```ruby
 def index
