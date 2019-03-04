@@ -1,6 +1,8 @@
 class V1::LocationsController < ApplicationController
 
   def index
+    locations = Location.order(created_at: :desc)
+    render json: locations 
   end
   
   def create

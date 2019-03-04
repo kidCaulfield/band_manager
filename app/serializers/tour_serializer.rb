@@ -19,7 +19,8 @@ class TourSerializer < ActiveModel::Serializer
       :aasm_state,
       :created_at,
       :updated_at,
-      :venue
+      :venue,
+      :address
       )
 
       belongs_to :tour
