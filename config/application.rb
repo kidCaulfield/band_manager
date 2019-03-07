@@ -38,7 +38,7 @@ module BandManager
     config.middleware.insert_before(0, Rack::Cors) do
       allow do
         # origins "www.google.com"
-        origins "localhost:3030", "127.0.0.1:3030"
+        origins "localhost:3030", "127.0.0.1:3030", "band-manager1.herokuapp.com"
         # "origins" specifies which domains are allowed to make AJAX
         # requests to this server. "*" means everyone and should normally not
         # by used.
