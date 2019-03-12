@@ -4,6 +4,7 @@ class V1::EventsController < ApplicationController
     tour = Tour.find params[:tour_id]
     event = Event.new event_params
     event.tour = tour
+    event.user = current_user
     event.save
     render json: event
   end

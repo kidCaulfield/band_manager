@@ -1,5 +1,5 @@
 class V1::UsersController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def current
     render json: {
@@ -16,9 +16,7 @@ class V1::UsersController < ApplicationController
     @user = User.new user_params
     if @user.save
       session[:user_id] = @user.id
-      render json: {
-        status: 200
-        }
+      render json: @used.id
     else
       render json: {
         status: 422,

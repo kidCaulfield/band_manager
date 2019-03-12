@@ -10,4 +10,9 @@ class ApplicationController < ActionController::API
 
   helper_method(:current_user)
 
+  def authenticate_user!
+    unless current_user.present?
+      render json: {status: 401}, status: 401
+    end
+  end
 end

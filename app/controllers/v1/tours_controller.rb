@@ -12,6 +12,7 @@ end
 
 def create
   tour = Tour.new tour_params
+  tour.user = current_user
   tour.save
   render json: {id: tour.id}, status: 200
 end
