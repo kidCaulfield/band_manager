@@ -1,7 +1,9 @@
 class V1::ToursController < ApplicationController
-
+before_action :authenticate_user!, except: [:index, :show]
+  
 def index
-  tours = Tour.order(created_at: :desc)
+  user = current_user
+  tours = Tour.where("user_id = #{user.id}").order(created_at: :desc)
   render json: tours
 end
 
