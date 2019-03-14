@@ -1,5 +1,5 @@
 class V1::UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:current]
 
   def current
     render json: {
