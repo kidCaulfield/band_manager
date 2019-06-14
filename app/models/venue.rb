@@ -4,6 +4,7 @@ class Venue < ApplicationRecord
 
   validates(
     :name,
-    uniqueness: true
+    uniqueness: { scope: :address,
+    message: "Venues of the Same name only alowed in different addresses" }
   )
 end
